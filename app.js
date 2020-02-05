@@ -6,7 +6,15 @@ const bodyParser = require('body-parser');
 
 // Connect to mongodb server
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/apiproject', { useNewUrlParser: true });
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.connect('mongodb://localhost/apiproject')
+                .then(db => {
+                    console.log('DB connected!')
+                })
+                .catch((err) => {
+                    throw err
+                });
 
 // Route files
 const users = require('./routes/users');
